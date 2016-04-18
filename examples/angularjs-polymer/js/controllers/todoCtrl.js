@@ -6,7 +6,7 @@
  * - exposes the model to the template and provides event handlers
  */
 angular.module('todomvc')
-	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store) {
+	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store, CustomElementHelper) {
 		'use strict';
 
 		var todos = $scope.todos = store.todos;
@@ -14,6 +14,12 @@ angular.module('todomvc')
 		$scope.newTodo = '';
 		$scope.newDeadline = new Date();
 		$scope.editedTodo = null;
+		$scope.dateFormat = 'DD.MM.YYYY';
+
+		var datePicker = CustomElementHelper.getInstance('#todo-datepicker');
+		datePicker.i18n.formatDate = function(date) {
+			return moment(date).format($scope.dateFormat);
+		};
 
 		$scope.$watch('todos', function () {
 			$scope.remainingCount = $filter('filter')(todos, { completed: false }).length;

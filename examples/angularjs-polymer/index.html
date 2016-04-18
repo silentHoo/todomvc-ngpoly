@@ -50,6 +50,7 @@
 					<form id="todo-form" ng-keypress="$event.which === 13 && addTodo()" style="display: flex">
 						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus autocomplete="off">
 						<vaadin-date-picker
+								id="todo-datepicker"
                                 style="width: 200px; padding: 0 10px 0 10px"
                                 ng-model="newDeadline"
                                 poly-bind="{{ { event: 'value-changed', modelValue: 'value' } }}"
@@ -72,9 +73,9 @@
 								<div style="display: flex; justify-content: space-between">
 									<label class="todo-label one-line-ellipsis" ng-dblclick="editTodo(todo)">{{todo.title}}</label>
 									<div style="display: flex; align-items: center">
-										<label ng-attr-id="todo-tooltip-{{$index}}" class="todo-deadline">{{todo.deadline | date: 'MM/dd/yyyy' }}</label>
+										<label ng-attr-id="todo-tooltip-{{$index}}" class="todo-deadline">{{todo.deadline | amDateFormat: dateFormat }}</label>
 										<paper-tooltip class="todo-createdAt-tooltip" ng-attr-for="todo-tooltip-{{$index}}" position="left" animation-delay="0">
-											Created at {{todo.createdAt | date: 'MM/dd/yyyy'}}
+											Created at {{todo.createdAt | amDateFormat: dateFormat }}
 										</paper-tooltip>
                                     </div>
                                 </div>
@@ -126,6 +127,7 @@
 		<script src="js/directives/todoFocus.js"></script>
 		<script src="js/directives/todoEscape.js"></script>
         <script src="js/directives/polyBind.js"></script>
+        <script src="js/factories/CustomElementHelper.js"></script>
 
 		<!-- 3rd party deps -->
         <script src="bower_components/moment/moment.js"></script>
