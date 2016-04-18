@@ -5,6 +5,11 @@
 		<title>AngularJS • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+
+		<!-- polymer related imports -->
+        <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html" async>
+        <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html" async>
+
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
 	<body ng-app="todomvc">
@@ -14,13 +19,24 @@
 			<section id="todoapp">
 				<header id="header">
 					<h1>todos</h1>
-					<form id="todo-form" ng-submit="addTodo()">
+					<form id="todo-form" ng-keypress="$event.which === 13 && addTodo()" style="display: flex">
 						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
+						<vaadin-date-picker
+                                style="width: 200px; padding: 0 10px 0 10px"
+                                ng-model="newDeadline"
+                                poly-bind="{{ { event: 'value-changed', modelValue: 'value' } }}"
+								value="{{ ::newDeadline | amDateFormat: 'YYYY-MM-DD' }}"
+								label="Deadline">
+						</vaadin-date-picker>
 					</form>
 				</header>
+
 				<section id="main" ng-show="todos.length" ng-cloak>
+                    <!-- 'mark all' button -->
 					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
 					<label for="toggle-all">Mark all as complete</label>
+
+					<!-- list -->
 					<ul id="todo-list">
 						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
 							<div class="view">
@@ -34,6 +50,7 @@
 						</li>
 					</ul>
 				</section>
+
 				<footer id="footer" ng-show="todos.length" ng-cloak>
 					<span id="todo-count"><strong>{{remainingCount}}</strong>
 						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
@@ -72,6 +89,12 @@
 		<script src="js/services/todoStorage.js"></script>
 		<script src="js/directives/todoFocus.js"></script>
 		<script src="js/directives/todoEscape.js"></script>
+        <script src="js/directives/polyBind.js"></script>
+
+		<!-- 3rd party deps -->
+        <script src="bower_components/moment/moment.js"></script>
+        <script src="bower_components/angular-moment/angular-moment.js"></script>
+
         <script>
             (function () {
                 // Feature detect and conditionally load the polyfills.

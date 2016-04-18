@@ -1,7 +1,9 @@
 {
-	"name": "todomvc-polymer",
-	"version": "0.0.2",
-	"dependencies": {
-		"polymer": "Polymer/polymer#^1.4.0"
-	}
+  "name": "todomvc-angularjs-polymer",
+  "version": "0.0.2",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "vaadin-date-picker": "^1.0.0-beta1",
+    "angular-moment": "^0.10.3"
+  }
 }

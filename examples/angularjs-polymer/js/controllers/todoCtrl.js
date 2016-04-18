@@ -12,6 +12,7 @@ angular.module('todomvc')
 		var todos = $scope.todos = store.todos;
 
 		$scope.newTodo = '';
+		$scope.newDeadline = new Date();
 		$scope.editedTodo = null;
 
 		$scope.$watch('todos', function () {
@@ -31,6 +32,7 @@ angular.module('todomvc')
 		$scope.addTodo = function () {
 			var newTodo = {
 				title: $scope.newTodo.trim(),
+				deadline: moment($scope.newDeadline).toDate(),
 				completed: false
 			};
 
