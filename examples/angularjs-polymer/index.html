@@ -7,10 +7,38 @@
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 
 		<!-- polymer related imports -->
-        <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html" async>
-        <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html" async>
+        <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
+        <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+        <link rel="import" href="bower_components/paper-tooltip/paper-tooltip.html" async>
 
-		<style>[ng-cloak] { display: none; }</style>
+
+		<style is="custom-style">
+			[ng-cloak] { display: none; }
+
+			.one-line-ellipsis {
+                text-overflow: ellipsis;
+                width: 340px;
+                white-space: nowrap !important;
+                overflow: hidden;
+            }
+
+			.todo-label {
+				padding-right: 0 !important;
+			}
+
+			.todo-deadline {
+                font-size: 12px;
+				margin-left: 0 !important;
+			}
+
+			.todo-createdAt-tooltip {
+                --paper-tooltip-background: black;
+                --paper-tooltip-opacity: 1.0;
+                --paper-tooltip: {
+					font-size: 18px;
+				}
+			}
+		</style>
 	</head>
 	<body ng-app="todomvc">
 		<ng-view />
@@ -20,7 +48,7 @@
 				<header id="header">
 					<h1>todos</h1>
 					<form id="todo-form" ng-keypress="$event.which === 13 && addTodo()" style="display: flex">
-						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
+						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus autocomplete="off">
 						<vaadin-date-picker
                                 style="width: 200px; padding: 0 10px 0 10px"
                                 ng-model="newDeadline"
@@ -42,9 +70,12 @@
 							<div class="view">
 								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
 								<div style="display: flex; justify-content: space-between">
-									<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+									<label class="todo-label one-line-ellipsis" ng-dblclick="editTodo(todo)">{{todo.title}}</label>
 									<div style="display: flex; align-items: center">
-										<label style="font-size: 12px">{{todo.deadline | date: 'MM/dd/yyyy' }}</label>
+										<label ng-attr-id="todo-tooltip-{{$index}}" class="todo-deadline">{{todo.deadline | date: 'MM/dd/yyyy' }}</label>
+										<paper-tooltip class="todo-createdAt-tooltip" ng-attr-for="todo-tooltip-{{$index}}" position="left" animation-delay="0">
+											Created at {{todo.createdAt | date: 'MM/dd/yyyy'}}
+										</paper-tooltip>
                                     </div>
                                 </div>
 								<button class="destroy" ng-click="removeTodo(todo)"></button>

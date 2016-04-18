@@ -33,6 +33,7 @@ angular.module('todomvc')
 			var newTodo = {
 				title: $scope.newTodo.trim(),
 				deadline: moment($scope.newDeadline).toDate(),
+				createdAt: new Date(),
 				completed: false
 			};
 
