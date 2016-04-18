@@ -41,7 +41,12 @@
 						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
 							<div class="view">
 								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
-								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+								<div style="display: flex; justify-content: space-between">
+									<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+									<div style="display: flex; align-items: center">
+										<label style="font-size: 12px">{{todo.deadline | date: 'MM/dd/yyyy' }}</label>
+                                    </div>
+                                </div>
 								<button class="destroy" ng-click="removeTodo(todo)"></button>
 							</div>
 							<form ng-submit="saveEdits(todo, 'submit')">

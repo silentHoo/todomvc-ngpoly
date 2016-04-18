@@ -19,9 +19,7 @@ angular.module('todomvc')
 					return;
 
 				elem.bind(conf.event, function (event) {
-					scope.$apply(function() {
-						scope.ngModel = event.detail[conf.modelValue];
-					});
+					scope.ngModel = event.detail[conf.modelValue];
 				});
 			}
 		}
