@@ -17,6 +17,7 @@ angular.module('todomvc')
 		$scope.dateFormat = 'DD.MM.YYYY';
 
 		var datePicker = CustomElementHelper.getInstance('#todo-datepicker');
+		datePicker.i18n.firstDayOfWeek = 1;
 		datePicker.i18n.formatDate = function(date) {
 			return moment(date).format($scope.dateFormat);
 		};
