@@ -75,7 +75,7 @@
 								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
 								<div style="display: flex; justify-content: space-between">
 									<label class="todo-label one-line-ellipsis" ng-dblclick="editTodo(todo)">
-										<span ng-click="speakIt(todo.title)">📢</span> {{todo.title}}
+										<span ng-click="speakIt(getTitle(todo))">📢</span> {{todo.title}}
 									</label>
 									<div style="display: flex; align-items: center">
 										<label ng-attr-id="todo-tooltip-{{$index}}" class="todo-deadline">{{todo.deadline | amDateFormat: dateFormat }}</label>

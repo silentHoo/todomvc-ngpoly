@@ -30,6 +30,11 @@ angular.module('todomvc')
 			});
 		};
 
+		moment.locale('de');
+		$scope.getTitle = function(todo) {
+			return todo.title + ' am ' + moment(todo.deadline).format('D. MMMM');
+		};
+
 		$scope.$watch('todos', function () {
 			$scope.remainingCount = $filter('filter')(todos, { completed: false }).length;
 			$scope.completedCount = todos.length - $scope.remainingCount;

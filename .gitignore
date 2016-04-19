@@ -2,3 +2,7 @@
 /bower_components
 /dist
 /tooling/node_modules
+.idea/encodings.xml
+.idea/todomvc-ngpoly.iml
+.tmp/site-assets/main.css
+examples/angularjs-polymer/bower_components
