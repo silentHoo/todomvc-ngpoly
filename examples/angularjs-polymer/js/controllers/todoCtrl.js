@@ -6,7 +6,7 @@
  * - exposes the model to the template and provides event handlers
  */
 angular.module('todomvc')
-	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store, CustomElementHelper) {
+	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store, CustomElementHelper, $timeout) {
 		'use strict';
 
 		var todos = $scope.todos = store.todos;
@@ -20,6 +20,14 @@ angular.module('todomvc')
 		datePicker.i18n.firstDayOfWeek = 1;
 		datePicker.i18n.formatDate = function(date) {
 			return moment(date).format($scope.dateFormat);
+		};
+
+		var voicePlayer = CustomElementHelper.getInstance('#voice-player');
+		$scope.speakIt = function(text) {
+			$scope.textToSpeak = text;
+			$timeout(function() {
+				voicePlayer.speak();
+			});
 		};
 
 		$scope.$watch('todos', function () {
