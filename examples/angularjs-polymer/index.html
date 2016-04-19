@@ -71,24 +71,7 @@
 					<!-- list -->
 					<ul id="todo-list">
 						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
-							<div class="view">
-								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
-								<div style="display: flex; justify-content: space-between">
-									<label class="todo-label one-line-ellipsis" ng-dblclick="editTodo(todo)">
-										<span ng-click="speakIt(getTitle(todo))">📢</span> {{todo.title}}
-									</label>
-									<div style="display: flex; align-items: center">
-										<label ng-attr-id="todo-tooltip-{{$index}}" class="todo-deadline">{{todo.deadline | amDateFormat: dateFormat }}</label>
-										<paper-tooltip class="todo-createdAt-tooltip" ng-attr-for="todo-tooltip-{{$index}}" position="left" animation-delay="0">
-											Created at {{todo.createdAt | amDateFormat: dateFormat }}
-										</paper-tooltip>
-                                    </div>
-                                </div>
-								<button class="destroy" ng-click="removeTodo(todo)"></button>
-							</div>
-							<form ng-submit="saveEdits(todo, 'submit')">
-								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
-							</form>
+							<ng-include src="'views/todo-row.html'"></ng-include>
 						</li>
 					</ul>
 				</section>
