@@ -6,7 +6,7 @@
  * - exposes the model to the template and provides event handlers
  */
 angular.module('todomvc')
-	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store, CustomElementHelper, $timeout) {
+	.controller('TodoCtrl', function TodoCtrl($scope, $routeParams, $filter, store, CustomElementHelper, $timeout, moment) {
 		'use strict';
 
 		var todos = $scope.todos = store.todos;
@@ -30,7 +30,6 @@ angular.module('todomvc')
 			});
 		};
 
-		moment.locale('de');
 		$scope.getTitle = function(todo) {
 			return todo.title + ' am ' + moment(todo.deadline).format('D. MMMM');
 		};
